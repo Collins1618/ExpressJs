@@ -11,15 +11,31 @@ const app = express(); //initializes a new object where expressjs
 
 //using middleware
 //use allows us to add a new middleware function
-app.use((req,res,next) => {
-    console.log("In the middleware!");
-    next(); //Allows the request to continue to the next middleware in line
-    //use next to allow a request to move onto the next function
-    //you should send a response if you've got other plans
-}); 
+// app.use((req,res,next) => {
+//     console.log("In the middleware!");
+//     next(); //Allows the request to continue to the next middleware in line
+//     //use next to allow a request to move onto the next function
+//     //you should send a response if you've got other plans
+// }); 
 
-app.use((req,res,next) => {
+//adding middleware that should be applied to all requests
+app.use('/', (req,res,next) => {
+    console.log("This is always runs");
+    next();
+})
+
+app.use('/add-product',(req,res,next) => {
     console.log("In another middleware!");
+    //express does not send a default response
+    //we are sending a response here, ourselves
+    res.send('<h1>The "Add-Product" page</h1>')
+    //if a request matches /add-product, the next middleware is not
+    //going to be executed because we are not calling next()
+    //even though it would have matched that request too
+});
+
+app.use('/',(req,res,next) => {
+    console.log("In the second middleware!");
     //express does not send a default response
     //we are sending a response here, ourselves
     res.send('<h1>Hello from Express!</h1>')
