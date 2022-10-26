@@ -3,6 +3,9 @@
 //import expressjs
 const express = require('express');
 
+//import body-parser
+const bodyParser = require('body-parser')
+
 //create an express application and store it in a constant by running
 //express as a function
 const app = express(); //initializes a new object where expressjs
@@ -19,23 +22,30 @@ const app = express(); //initializes a new object where expressjs
 // }); 
 
 //adding middleware that should be applied to all requests
-app.use('/', (req,res,next) => {
-    console.log("This is always runs");
-    next();
-})
+// app.use('/', (req,res,next) => {
+//     console.log("This is always runs");
+//     next();
+// })
+
+//a body-parser middleware
+app.use(bodyParser.urlencoded({extended:false}))
 
 app.use('/add-product',(req,res,next) => {
-    console.log("In another middleware!");
+   // console.log("In another middleware!");
     //express does not send a default response
     //we are sending a response here, ourselves
-    res.send('<h1>The "Add-Product" page</h1>')
+    res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>')
     //if a request matches /add-product, the next middleware is not
     //going to be executed because we are not calling next()
     //even though it would have matched that request too
 });
 
+app.use("/product", (req,res, next) => {
+    console.log(req.body);
+    res.redirect("/");
+} )
+
 app.use('/',(req,res,next) => {
-    console.log("In the second middleware!");
     //express does not send a default response
     //we are sending a response here, ourselves
     res.send('<h1>Hello from Express!</h1>')
@@ -44,5 +54,5 @@ app.use('/',(req,res,next) => {
 //const server = http.createServer(app); //app is a valid request handler
 //server.listen(3000);
 
-//the above two lines can be replace with 
+//the above two lines can be replaced with 
 app.listen(3000);
