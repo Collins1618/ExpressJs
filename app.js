@@ -1,4 +1,4 @@
-const http = require('http');
+//const http = require('http'); //removed because we are using express
 
 //import expressjs
 const express = require('express');
@@ -20,9 +20,13 @@ app.use((req,res,next) => {
 
 app.use((req,res,next) => {
     console.log("In another middleware!");
+    //express does not send a default response
+    //we are sending a response here, ourselves
+    res.send('<h1>Hello from Express!</h1>')
 });
 
-const server = http.createServer(app); //app is a valid request handler
+//const server = http.createServer(app); //app is a valid request handler
+//server.listen(3000);
 
-
-server.listen(3000);
+//the above two lines can be replace with 
+app.listen(3000);
