@@ -40,7 +40,9 @@ app.use('/add-product',(req,res,next) => {
     //even though it would have matched that request too
 });
 
-app.use("/product", (req,res, next) => {
+//to filter for only post requests we use app.post instead of app.use
+//the same can be done for get requests with app.get();
+app.post("/product", (req,res, next) => {
     console.log(req.body);
     res.redirect("/");
 } )
