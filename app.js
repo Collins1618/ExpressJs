@@ -3,8 +3,15 @@
 //import expressjs
 const express = require('express');
 
+//import our routing file
+const adminRoutes = require('./routes/admin');
+
+//import our shop routing file
+const shopRoutes = require('./routes/shop');
+
 //import body-parser
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+
 
 //create an express application and store it in a constant by running
 //express as a function
@@ -30,28 +37,11 @@ const app = express(); //initializes a new object where expressjs
 //a body-parser middleware
 app.use(bodyParser.urlencoded({extended:false}))
 
-app.use('/add-product',(req,res,next) => {
-   // console.log("In another middleware!");
-    //express does not send a default response
-    //we are sending a response here, ourselves
-    res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>')
-    //if a request matches /add-product, the next middleware is not
-    //going to be executed because we are not calling next()
-    //even though it would have matched that request too
-});
+//put adminRoutes middleware to route to admins routes
+app.use(adminRoutes);
 
-//to filter for only post requests we use app.post instead of app.use
-//the same can be done for get requests with app.get();
-app.post("/product", (req,res, next) => {
-    console.log(req.body);
-    res.redirect("/");
-} )
-
-app.use('/',(req,res,next) => {
-    //express does not send a default response
-    //we are sending a response here, ourselves
-    res.send('<h1>Hello from Express!</h1>')
-});
+//put shopRoutes middles to route to the shop routes
+app.use(shopRoutes);
 
 //const server = http.createServer(app); //app is a valid request handler
 //server.listen(3000);
