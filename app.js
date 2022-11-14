@@ -43,8 +43,10 @@ app.use(adminRoutes);
 //put shopRoutes middles to route to the shop routes
 app.use(shopRoutes);
 
-//const server = http.createServer(app); //app is a valid request handler
-//server.listen(3000);
+//sending a 404 page
+app.use((req,res,next) => {
+    res.status(404).send('<h1>SORRY! PAGE NOT FOUND</h1>')
+})
 
 //the above two lines can be replaced with 
 app.listen(3000);
