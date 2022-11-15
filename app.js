@@ -52,7 +52,7 @@ app.use('/',(req,res,next) => {
     //res.status(404).send('<h1>SORRY! PAGE NOT FOUND</h1>')
 })
 
-//the above two lines can be replaced with 
+
 app.listen(3000);
 
 // module.exports = path.dirname(require.main.filename);
