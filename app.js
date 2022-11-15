@@ -3,6 +3,9 @@
 //import expressjs
 const express = require('express');
 
+//import path module
+const path = require('path');
+
 //import our routing file
 const adminRoutes = require('./routes/admin');
 
@@ -38,15 +41,18 @@ const app = express(); //initializes a new object where expressjs
 app.use(bodyParser.urlencoded({extended:false}))
 
 //put adminRoutes middleware to route to admins routes
-app.use(adminRoutes);
+app.use('/admin', adminRoutes);
 
 //put shopRoutes middles to route to the shop routes
 app.use(shopRoutes);
 
 //sending a 404 page
-app.use((req,res,next) => {
-    res.status(404).send('<h1>SORRY! PAGE NOT FOUND</h1>')
+app.use('/',(req,res,next) => {
+    res.status(404).sendFile(path.join(__dirname,'views', '404.html'))
+    //res.status(404).send('<h1>SORRY! PAGE NOT FOUND</h1>')
 })
 
 //the above two lines can be replaced with 
 app.listen(3000);
+
+// module.exports = path.dirname(require.main.filename);
