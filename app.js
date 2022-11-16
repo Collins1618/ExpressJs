@@ -40,6 +40,10 @@ const app = express(); //initializes a new object where expressjs
 //a body-parser middleware
 app.use(bodyParser.urlencoded({extended:false}))
 
+//serving files statically, this is for CSS files
+//this is a static middleware
+app.use(express.static(path.join(__dirname, 'public')));
+
 //put adminRoutes middleware to route to admins routes
 app.use('/admin', adminRoutes);
 
