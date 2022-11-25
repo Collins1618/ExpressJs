@@ -8,7 +8,10 @@ const adminData = require('./admin');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.render('shop');
+    //take products from admin data
+    const products = adminData.products;
+    //inject that data you took into our template
+    res.render('shop', {prods: products, docTitle: 'Shop'});
 });
 
 module.exports = router;
