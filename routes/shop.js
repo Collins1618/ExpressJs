@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
     //take products from admin data
     const products = adminData.products;
     //inject that data you took into our template
-    res.render('shop', {prods: products, docTitle: 'Shop'});
+    res.render('shop', {prods: products, pageTitle: 'Shop', path:'/'});
 });
 
 module.exports = router;
